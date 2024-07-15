@@ -33,7 +33,11 @@ make -j$NUM_CORES
 make install_sw
 cd ../
 
-mkdir release
+mkdir -p release/lib
+
+cp -r openssl_arm64/release/include release/include
+cp -r openssl_arm64/release/lib/cmake release/lib/cmake
+cp -r openssl_arm64/release/lib/pkg-config release/lib/pkg-config
 
 # shared libraries
 lipo -create openssl_arm64/release/lib/libcrypto.$OPENSSL_VERSION_SHORT.dylib \
@@ -41,7 +45,7 @@ lipo -create openssl_arm64/release/lib/libcrypto.$OPENSSL_VERSION_SHORT.dylib \
     -output release/lib/libcrypto.$OPENSSL_VERSION_SHORT.dylib
 lipo -create openssl_arm64/release/lib/libssl.$OPENSSL_VERSION_SHORT.dylib \
     openssl_x86_64/release/lib/libssl.$OPENSSL_VERSION_SHORT.dylib \
-    -output release/lib/libssl.$OPENSSL_VERSION_SHORT.dylib
+    -output release/lib/libssl.$OPENSSL_VERSION_SHORT.dylib    
 
 # static libraries
 lipo -create openssl_arm64/release/lib/libcrypto.a \
@@ -50,8 +54,6 @@ lipo -create openssl_arm64/release/lib/libcrypto.a \
 lipo -create openssl_arm64/release/lib/libssl.a \
     openssl_x86_64/release/lib/libssl.a \
     -output release/lib/libssl.a
-
-cp -r openssl_arm64/release/include release/include
 
 # create a tarball
 tar -czvf openssl-$OPENSSL_VERSION-macos.tar.gz release
