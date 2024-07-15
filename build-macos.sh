@@ -37,7 +37,7 @@ mkdir -p release/lib
 
 cp -r openssl_arm64/release/include release/include
 cp -r openssl_arm64/release/lib/cmake release/lib/cmake
-cp -r openssl_arm64/release/lib/pkg-config release/lib/pkg-config
+cp -r openssl_arm64/release/lib/pkgconfig release/lib/pkgconfig
 
 # shared libraries
 lipo -create openssl_arm64/release/lib/libcrypto.$OPENSSL_VERSION_SHORT.dylib \
