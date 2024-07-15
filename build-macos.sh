@@ -3,12 +3,10 @@
 OPENSSL_VERSION="3.3.1"
 
 curl -O http://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz
-tar -xvzf openssl-$OPENSSL_VERSION.tar.gz
+tar -xvzf openssl-$OPENSSL_VERSION.tar.gz -C .
 mv openssl-$OPENSSL_VERSION openssl_arm64
-tar -xvzf openssl-$OPENSSL_VERSION.tar.gz
-rm openssl-$OPENSSL_VERSION.tar.gz
+cp -r openssl_arm64 openssl_x86_64
 
-mv openssl-$OPENSSL_VERSION openssl_x86_64
 cd openssl_arm64
 ./Configure darwin-arm64-cc -shared
 make
